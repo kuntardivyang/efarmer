@@ -1,0 +1,39 @@
+/* src/App.css */
+.App {
+  text-align: center;
+  padding: 20px;
+}
+
+.container {
+  display: inline-block;
+  text-align: left;
+}
+
+h1 {
+  color: #333;
+}
+
+input {
+  margin-bottom: 10px;
+}
+
+button {
+  padding: 10px 20px;
+  background-color: #28a745;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+button:disabled {
+  background-color: #ccc;
+}
+
+h2 {
+  color: #007bff;
+}
+
+p {
+  color: #555;
+}

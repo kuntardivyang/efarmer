@@ -14,7 +14,7 @@ const Carousel = () => {
 
   return (
     <div className="">
-      <div className="carousel w-full h-screen overflow-hidden mt-16">
+      <div className="carousel w-full h-[83vh] overflow-hidden mt-16">
         <div
           id="slide1"
           className={`carousel-item relative w-full ${
@@ -22,7 +22,7 @@ const Carousel = () => {
           }`}
         >
           <img
-            src="https://img.daisyui.com/images/stock/photo-1625726411847-8cbb60cc71e6.webp"
+            src={`${process.env.PUBLIC_URL}/images/i1.jpg`}
             className="w-full h-[80vh]"
             alt="Slide 1"
           />
@@ -42,7 +42,7 @@ const Carousel = () => {
           }`}
         >
           <img
-            src="https://img.daisyui.com/images/stock/photo-1609621838510-5ad474b7d25d.webp"
+            src={`${process.env.PUBLIC_URL}/images/i2.jpeg`}
             className="w-full h-[80vh]"
             alt="Slide 2"
           />
@@ -62,7 +62,7 @@ const Carousel = () => {
           }`}
         >
           <img
-            src="https://img.daisyui.com/images/stock/photo-1414694762283-acccc27bca85.webp"
+            src={`${process.env.PUBLIC_URL}/images/i4.jpg`}
             className="w-full h-[80vh]"
             alt="Slide 3"
           />
@@ -82,7 +82,7 @@ const Carousel = () => {
           }`}
         >
           <img
-            src="https://img.daisyui.com/images/stock/photo-1665553365602-b2fb8e5d1707.webp"
+            src={`${process.env.PUBLIC_URL}/images/i11.jpeg`}
             className="w-full h-[80vh]"
             alt="Slide 4"
           />

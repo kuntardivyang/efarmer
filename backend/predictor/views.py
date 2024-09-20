@@ -12,7 +12,7 @@ import logging
 logger = logging.getLogger(__name__)
 
 # Load the model
-model = tf.keras.models.load_model('../plant_disease_model.h5')
+model = tf.keras.models.load_model('plant_disease_model.h5')
 model.compile(optimizer='adam', loss='categorical_crossentropy', metrics=['accuracy'])
 
 @csrf_exempt

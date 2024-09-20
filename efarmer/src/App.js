@@ -1,12 +1,14 @@
 import React from 'react';
-import UploadComponent from './UploadComponent';
+import { RouterProvider } from 'react-router-dom';
+import './App.css';
+import router from './router/Router';
 
 function App() {
   return (
-    <div className="App">
-      <h1>Plant Disease Predictor</h1>
-      <UploadComponent />
-    </div>
+    <>
+    <RouterProvider router={router} />
+    {/* <Navbar/> */}
+    </>
   );
 }
 

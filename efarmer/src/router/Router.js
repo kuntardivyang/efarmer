@@ -2,6 +2,8 @@ import { createBrowserRouter } from "react-router-dom"; // Use ES6 import syntax
 import Signup from "../auth/Signup";
 import { Home } from "../home_page/Home";
 import UploadComponent from "../prediction/UploadComponent"
+import Profile from "../base/Profile";
+import AboutUs from "../home_page/AboutUs";
 
 const router = createBrowserRouter([
     {
@@ -13,8 +15,16 @@ const router = createBrowserRouter([
         element: <Signup/>
     },
     {
-        path: "/predict",
+        path: "/predictDisease",
         element: <UploadComponent/>
+    },
+    {
+        path: "/profile",
+        element: <Profile/>
+    },
+    {
+        path: "/about",
+        element: <AboutUs/>
     }
 ]);
 

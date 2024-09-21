@@ -83,6 +83,29 @@ app.post('/login', async (req, res) => {
     }
 });
 
+
+
+// Profile Route to get user details
+app.get('/profile/:userId', async (req, res) => {
+    const { userId } = req.params;
+
+    try {
+        const user = await User.findById(userId).select('-password'); // Exclude the password field
+        if (!user) {
+            return res.status(404).json({ msg: 'User not found' });
+        }
+        res.status(200).json(user);
+    } catch (err) {
+        res.status(500).json({ msg: "Server error", error: err.message });
+    }
+});
+
+
+
+
+
+
+
 // Start the server
 const PORT = 5000;
 app.listen(PORT, () => {

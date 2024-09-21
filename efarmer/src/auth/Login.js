@@ -7,7 +7,6 @@ const Login = () => {
         password: ''
     });
 
-    // Handle input change
     const handleChange = (e) => {
         const { name, value } = e.target;
         setFormData({
@@ -16,14 +15,18 @@ const Login = () => {
         });
     };
 
-    // Handle form submission
     const handleSubmit = async (e) => {
         e.preventDefault();
         try {
             const response = await axios.post('http://localhost:5000/login', formData);
             console.log(response.data);
             alert('Login successful!');
-            // You can redirect the user or perform additional actions here
+
+            // Save the user information to localStorage
+            localStorage.setItem('user', JSON.stringify(response.data.user));
+
+            // Reload the page or re-render to update the Navbar
+            window.location.reload();
         } catch (error) {
             console.error(error);
             alert('Error logging in');
@@ -38,7 +41,6 @@ const Login = () => {
                         <div className="text-gray-900 font-bold text-4xl text-center">
                             <h1>Login</h1>
                         </div>
-
                         <div className="form-control">
                             <label className="label">
                                 <span className="label-text">Email</span>

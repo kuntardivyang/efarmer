@@ -4,6 +4,7 @@ import { Home } from "../home_page/Home";
 import UploadComponent from "../prediction/UploadComponent"
 import Profile from "../base/Profile";
 import AboutUs from "../home_page/AboutUs";
+import CropRecommendation from "../prediction/CropRecommendation";
 
 const router = createBrowserRouter([
     {
@@ -25,7 +26,12 @@ const router = createBrowserRouter([
     {
         path: "/about",
         element: <AboutUs/>
-    }
+    },
+    {
+        path: "/yield",
+        element: <CropRecommendation/>
+    },
+
 ]);
 
 export default router;

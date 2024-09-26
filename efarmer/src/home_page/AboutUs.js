@@ -9,7 +9,7 @@ const AboutUs = () => {
       <Navbar/>
       {/* Section with background image */}
       <div
-        className="relative bg-cover bg-center h-96"
+        className="relative bg-cover bg-center h-96 mt-16"
         style={{ backgroundImage: `url(${image1})` }}  // Correcting the background image error
       >
         <div className="absolute inset-0 bg-black opacity-50"></div>

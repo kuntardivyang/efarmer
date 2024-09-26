@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import axios from 'axios';
 import { Navbar } from '../base/Navbar';
 import Footer from '../base/Footer';
+import backgroundImage from './predict.jpg'; // Import the image
 
 function UploadComponent() {
   const [selectedFile, setSelectedFile] = useState(null);
@@ -26,50 +27,63 @@ function UploadComponent() {
   };
 
   return (
-    <div className="min-h-screen bg-gray-100">
-      <Navbar />
-      <div className="flex flex-col lg:flex-row items-center justify-between py-12 px-4 sm:px-6 lg:px-8">
-        
-        {/* Left Side: Upload Form */}
-        <div className="lg:w-1/2 w-full mb-8 lg:mb-0 bg-white shadow-md rounded-lg p-8 space-y-6 mt-[20vh]">
-          <h2 className="text-center text-3xl font-extrabold text-gray-900">Upload and Predict</h2>
-          <div className="space-y-4">
-            <input
-              type="file"
-              onChange={handleFileChange}
-              className="block w-full text-sm text-gray-500 file:mr-4 file:py-2 file:px-4 file:rounded-lg file:border-0 file:text-sm file:font-semibold file:bg-indigo-50 file:text-indigo-700 hover:file:bg-indigo-100"
-            />
-            <button
-              onClick={handleUpload}
-              className="w-full py-2 px-4 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
+    <div>
+      <div className="min-h-screen mt-16 relative" style={{ backgroundImage: `url(${backgroundImage})`, backgroundSize: 'cover', backgroundPosition: 'center' }}>
+      {/* Brightening Overlay */}
+      <div className="absolute inset-0 bg-dark opacity-30"></div>
+
+      {/* Main Content */}
+      <div className="relative z-10">
+        <Navbar />
+        <div className="flex flex-col lg:flex-row items-center justify-between py-12 px-4 sm:px-6 lg:px-8">
+          
+          {/* Left Side: Video */}
+          <div className="lg:w-1/2 h-64 w-full flex items-center justify-center mt-[20vh]">
+            <video
+              className="w-full lg:max-w-lg rounded-lg shadow-lg"
+              autoPlay
+              muted
+              loop
+              controls
+              src=""  
             >
-              Upload and Predict
-            </button>
+              Your browser does not support the video tag.
+            </video>
           </div>
-          {prediction !== null && (
-            <div className="mt-6 p-4 bg-green-50 rounded-lg text-green-700">
-              <p className="text-center font-semibold">Predicted Class: {prediction}</p>
+
+          {/* Right Side: Upload Form */}
+          <div className="lg:w-1/3 h-64 w-full mb-8 lg:mb-0 bg-white shadow-md rounded-lg p-8 space-y-6 mt-[20vh] mr-32">
+            <h2 className="text-center text-3xl font-extrabold text-gray-900">Upload and Predict</h2>
+            <div className="space-y-4">
+              <input
+                type="file"
+                onChange={handleFileChange}
+                className="block w-full text-sm text-gray-500 file:mr-4 file:py-2 file:px-4 file:rounded-lg file:border-0 file:text-sm file:font-semibold file:bg-indigo-50 file:text-indigo-700 hover:file:bg-indigo-100"
+              />
+              <button
+                onClick={handleUpload}
+                className="w-full py-2 px-4 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
+              >
+                Upload and Predict
+              </button>
             </div>
-          )}
+            {prediction !== null && (
+              <div className="mt-6 p-4 bg-green-50 rounded-lg text-green-700">
+                <p className="text-center font-semibold">Predicted Class: {prediction}</p>
+              </div>
+            )}
+          </div>
         </div>
 
-        {/* Right Side: Video */}
-        <div className="lg:w-1/2 w-full flex items-center justify-center mt-[20vh]">
-          <video
-            className="w-full lg:max-w-lg rounded-lg shadow-lg"
-            autoPlay
-            muted
-            loop
-            controls
-            src=""  
-          >
-            Your browser does not support the video tag.
-          </video>
-        </div>
+        
       </div>
 
-      <Footer/>
     </div>
+
+    <Footer />
+
+    </div>
+    
   );
 }
 

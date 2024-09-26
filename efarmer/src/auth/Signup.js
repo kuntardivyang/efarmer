@@ -50,11 +50,13 @@ const Signup = () => {
             className="hidden lg:block lg:w-1/2 bg-cover"
             style={{
               backgroundImage:
-                "url('https://images.unsplash.com/photo-1546514714-df0ccc50d7bf?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=667&q=80')",
+                "url('https://images.unsplash.com/photo-1523741543316-beb7fc7023d8?q=80&w=1887&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D')", // Agriculture-related image
             }}
           ></div>
           <div className="w-full p-8 lg:w-1/2">
-            <h2 className="text-2xl font-semibold text-gray-700 text-center">eFarmer</h2>
+            <h2 className="text-2xl font-semibold text-center" style={{ color: '#274135' }}>
+              eFarmer
+            </h2>
 
             <form onSubmit={handleSubmit}>
               <div className="mt-4 flex">
@@ -133,7 +135,8 @@ const Signup = () => {
               <div className="mt-8">
                 <button
                   type="submit"
-                  className="bg-gray-700 text-white font-bold py-2 px-4 w-full rounded hover:bg-gray-600"
+                  className="font-bold py-2 px-4 w-full rounded hover:bg-gray-600"
+                  style={{ backgroundColor: '#274135', color: 'white' }}
                 >
                   Signup
                 </button>

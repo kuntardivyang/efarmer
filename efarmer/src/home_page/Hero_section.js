@@ -2,36 +2,74 @@ import React from 'react';
 
 const Hero_section = () => {
   return (
-    <div>
-      <div
-        className="hero h-[50vh] bg-opacity-50"
-        style={{
-          backgroundImage: `url(${process.env.PUBLIC_URL}/images/heroImage.jpg)`,
-        }}
-      >
-        <section className="text-gray-600 body-font -mt-6">
-          <div className="container px-5 py-24 mx-auto">
-            <div className="flex flex-wrap -mx-4 -my-8 opacity-70">
-              {['The 400 Blows', 'Shooting Stars', 'Neptune'].map((title, index) => (
-                <div key={index} className="py-8 px-4 lg:w-[30%] bg-white ml-4 rounded-lg shadow-lg transition-transform duration-300 hover:scale-105">
-                  <div className="h-full flex items-start">
-                    <div className="flex-grow pl-6">
-                      <h2 className="tracking-widest text-xs title-font font-medium text-indigo-500 mb-1">CATEGORY</h2>
-                      <h1 className="title-font text-xl font-medium text-gray-900 mb-3">{title}</h1>
-                      <p className="leading-relaxed mb-5">Photo booth fam kinfolk cold-pressed sriracha leggings jianbing microdosing tousled waistcoat.</p>
-                      <a className="inline-flex items-center">
-                        <img alt="blog" src="https://dummyimage.com/103x103" className="w-8 h-8 rounded-full flex-shrink-0 object-cover object-center" />
-                        <span className="flex-grow flex flex-col pl-3">
-                          <span className="title-font font-medium text-gray-900">Author Name</span>
-                        </span>
-                      </a>
+    <div className="bg-[url('https://themes.muffingroup.com/be/farm2/wp-content/uploads/2020/12/farm2-columnbg1.png')] bg-repeat bg-top p-20">
+      <div className="section"> 
+        <div className="section_wrapper">
+          <div className="wrap flex flex-col items-center">
+            <div className="mcb-wrap-inner">
+              <div className="w-full flex justify-center">
+                <div className="text-center">
+                  <h3 className="text-xl font-bold">The Future of Smart Farming</h3>
+                </div>
+              </div>
+              <div className="my-5 w-full border-t"></div>
+              <div className="flex flex-wrap justify-between w-full">
+                <div className="flex items-start w-1/2 p-2">
+                  <div className="list_item flex items-center">
+                    <div className="list_left">
+                      <img src="https://themes.muffingroup.com/be/farm2/wp-content/uploads/2020/12/farm2-home-icon1.png" className="scale-with-grid" alt="farm2-home-icon1" width="70" height="70" />
+                    </div>
+                    <div className="list_right ml-2">
+                      <div className="desc">
+                        <h5 className="font-bold">Disease Detection</h5>
+                        <p>Early diagnosis of plant diseases to safeguard your crops</p>
+                      </div>
                     </div>
                   </div>
                 </div>
-              ))}
+                <div className="flex items-start w-1/2 p-2">
+                  <div className="list_item flex items-center">
+                    <div className="list_left">
+                      <img src="https://themes.muffingroup.com/be/farm2/wp-content/uploads/2020/12/farm2-home-icon2.png" className="scale-with-grid" alt="farm2-home-icon2" width="70" height="70" />
+                    </div>
+                    <div className="list_right ml-2">
+                      <div className="desc">
+                        <h5 className="font-bold">Profile Management</h5>
+                        <p>Easily update and manage your account, crops, and transactions</p>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div className="flex items-start w-1/2 p-2">
+                  <div className="list_item flex items-center">
+                    <div className="list_left">
+                      <img src="https://themes.muffingroup.com/be/farm2/wp-content/uploads/2020/12/farm2-home-icon3.png" className="scale-with-grid" alt="farm2-home-icon3" width="70" height="70" />
+                    </div>
+                    <div className="list_right ml-2">
+                      <div className="desc">
+                        <h5 className="font-bold">Yield Prediction</h5>
+                        <p>Predict crop yields with precision to make data-driven decisions</p>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div className="flex items-start w-1/2 p-2">
+                  <div className="list_item flex items-center">
+                    <div className="list_left">
+                      <img src="https://themes.muffingroup.com/be/farm2/wp-content/uploads/2020/12/farm2-home-icon5.png" className="scale-with-grid" alt="farm2-home-icon5" width="70" height="70" />
+                    </div>
+                    <div className="list_right ml-2">
+                      <div className="desc">
+                        <h5 className="font-bold">About Us</h5>
+                        <p>Learn more about our mission to promote sustainable agriculture</p>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
             </div>
           </div>
-        </section>
+        </div>
       </div>
     </div>
   );

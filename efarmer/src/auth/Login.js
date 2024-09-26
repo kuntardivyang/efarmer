@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import axios from 'axios';
+import { Link } from 'react-router-dom'; // Import the Link component
 
 const Login = () => {
     const [formData, setFormData] = useState({
@@ -33,13 +34,23 @@ const Login = () => {
         }
     };
 
+    const handleClose = () => {
+        const modal = document.getElementById('my_modal_2');
+        modal.close();  // This will close the modal
+    };
+
     return (
         <div>
             <dialog id="my_modal_2" className="modal">
                 <div className="modal-box">
+                    {/* Close button */}
+                    <button className="btn btn-sm btn-circle absolute right-2 top-2" onClick={handleClose}>
+                        ✕
+                    </button>
+
                     <form className="card-body modal-backdrop" onSubmit={handleSubmit}>
                         <div className="text-gray-900 font-bold text-4xl text-center">
-                            <h1>Login</h1>
+                            <h1 className="text-4xl font-bold" style={{ color: '#274135' }}>Login</h1>
                         </div>
                         <div className="form-control">
                             <label className="label">
@@ -72,14 +83,22 @@ const Login = () => {
                                 <a href="#" className="label-text-alt link link-hover">Forgot password?</a>
                             </label>
                         </div>
+                        {/* Apply inline style for background color */}
                         <div className="form-control mt-6">
-                            <button className="btn btn-primary">Login</button>
+                            <button className="btn text-white" style={{ backgroundColor: '#274135' }}>
+                                Login
+                            </button>
                         </div>
                     </form>
+
+                    {/* Link to register */}
+                    <div className="text-center mt-4">
+                        <p>Not a user? <Link to="/signup" className="link link-hover text-blue-500">Register here</Link></p>
+                    </div>
                 </div>
             </dialog>
         </div>
     );
-}
+};
 
 export default Login;

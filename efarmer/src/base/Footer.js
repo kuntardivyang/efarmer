@@ -4,30 +4,30 @@ import { Link } from "react-router-dom";
 const Footer = () => {
   return (
     <div>
-      <footer className="footer footer-center bg-green-100 text-base-content rounded p-10">
+      <footer className="footer footer-center bg-[url('https://themes.muffingroup.com/be/farm2/wp-content/uploads/2020/12/farm2-columnbg1.png')] bg-repeat bg-top text-base-content rounded p-10">
         {/* Navigation Links */}
         <nav className="grid grid-flow-col gap-4">
           <Link
             to="/about"
-            className="link link-hover text-green-600 hover:text-white hover:scale-110 transition-transform duration-300"
+            className="link link-hover text-green-600 hover:text-gray-700 hover:scale-110 transition-transform duration-300"
           >
             About us
           </Link>
           <Link
             to="/contact"
-            className="link link-hover text-green-600 hover:text-white hover:scale-110 transition-transform duration-300"
+            className="link link-hover text-green-600 hover:text-gray-700 hover:scale-110 transition-transform duration-300"
           >
             Contact
           </Link>
           <Link
             to="/jobs"
-            className="link link-hover text-green-600 hover:text-white hover:scale-110 transition-transform duration-300"
+            className="link link-hover text-green-600 hover:text-gray-700 hover:scale-110 transition-transform duration-300"
           >
             Jobs
           </Link>
           <Link
             to="/press-kit"
-            className="link link-hover text-green-600 hover:text-white hover:scale-110 transition-transform duration-300"
+            className="link link-hover text-green-600 hover:text-gray-700 hover:scale-110 transition-transform duration-300"
           >
             Press kit
           </Link>
@@ -75,7 +75,7 @@ const Footer = () => {
         {/* Copyright */}
         <aside>
           <p className="text-gray-700">
-            Copyright © {new Date().getFullYear()} - All rights reserved by ACME Industries Ltd
+            Copyright © {new Date().getFullYear()} - All rights reserved by eFarmer
           </p>
         </aside>
       </footer>

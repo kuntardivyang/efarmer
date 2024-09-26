@@ -24,7 +24,7 @@ export const Navbar = () => {
 
   return (
     <div className="fixed top-0 left-0 right-0 z-50">
-      <div className="navbar bg-green-100 shadow-md">
+      <div className="navbar shadow-md" style={{ backgroundColor: '#274135' }}>
         <div className="navbar-start">
           <div className="dropdown">
             <button tabIndex={0} className="btn btn-ghost lg:hidden">
@@ -60,21 +60,20 @@ export const Navbar = () => {
         <div className="navbar-center hidden lg:flex">
           <ul className="menu menu-horizontal px-1">
             <li>
-              <Link to="/" className="text-green-600 hover:text-green-800 transition">Home</Link>
+              <Link to="/" className="text-gray-200 hover:text-green-500 transition">Home</Link>
             </li>
             <li>
-              <Link to="/" className="text-green-600 hover:text-green-800 transition">Yield Pred.</Link>
+              <Link to="/yield" className="text-gray-200 hover:text-green-500 transition">Yield Pred.</Link>
             </li>
             <li>
-              <Link to="/predictDisease" className="text-green-600 hover:text-green-800 transition">Disease Pred.</Link>
+              <Link to="/predictDisease" className="text-gray-200 hover:text-green-500 transition">Disease Pred.</Link>
             </li>
             <li>
-              <Link to="/ecommerce" className="text-green-600 hover:text-green-800 transition">E-commerce</Link>
+              <Link to="/ecommerce" className="text-gray-200 hover:text-green-500 transition">E-commerce</Link>
             </li>
           </ul>
         </div>
 
-        {/* Conditional rendering based on login status */}
         <div className="navbar-end">
           {isLoggedIn ? (
             <>
@@ -87,7 +86,7 @@ export const Navbar = () => {
                 </label>
                 <ul tabIndex={0} className="menu menu-compact dropdown-content mt-3 p-2 shadow-lg bg-white rounded-box w-52">
                   <li>
-                    <Link to="/profile" className="hover:text-green-600 transition">Profile</Link>
+                    <Link to="/profile" className="text-gray-600 hover:text-green-500 transition">Profile</Link>
                   </li>
                   <li>
                     <button onClick={handleLogout} className="hover:text-red-600 transition">Logout</button>
@@ -97,7 +96,7 @@ export const Navbar = () => {
             </>
           ) : (
             <>
-              <button className="btn bg-green-500 hover:bg-green-600 text-white transition" onClick={() => document.getElementById('my_modal_2').showModal()}>Login</button>
+              <button style={{ backgroundColor: '#274135' }} className="btn bg-green-500 hover:bg-green-600 text-white transition" onClick={() => document.getElementById('my_modal_2').showModal()}>Login</button>
               <Login />
             </>
           )}

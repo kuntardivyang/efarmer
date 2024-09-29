@@ -19,15 +19,18 @@ const Login = () => {
     const handleSubmit = async (e) => {
         e.preventDefault();
         try {
-            const response = await axios.post('http://localhost:5000/login', formData);
+            const response = await axios.post('http://localhost:5000/api/auth/login', formData);
             console.log(response.data);
-            alert('Login successful!');
-
+            
             // Save the user information to localStorage
             localStorage.setItem('user', JSON.stringify(response.data.user));
 
-            // Reload the page or re-render to update the Navbar
-            window.location.reload();
+            // Check user role and redirect accordingly
+            if (response.data.user.isFarmer) {
+                window.location.href = '/'; // Redirect to farmer page
+            } else {
+                window.location.href = '/consumer'; // Redirect to consumer page
+            }
         } catch (error) {
             console.error(error);
             alert('Error logging in');
@@ -93,7 +96,7 @@ const Login = () => {
 
                     {/* Link to register */}
                     <div className="text-center mt-4">
-                        <p>Not a user? <Link to="/signup" className="link link-hover text-blue-500">Register here</Link></p>
+                        <p>Not a user? <Link to="/signup" className="link link-hover text-[#6FAFAD]">Register here</Link></p>
                     </div>
                 </div>
             </dialog>

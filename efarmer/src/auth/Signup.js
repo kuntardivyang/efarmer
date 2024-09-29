@@ -1,7 +1,9 @@
 import React, { useState } from 'react';
 import axios from 'axios';
+import { useNavigate } from 'react-router-dom'; // Import useNavigate from react-router-dom
 
 const Signup = () => {
+  const navigate = useNavigate(); // Initialize navigate for redirection
   // State to handle form input
   const [formData, setFormData] = useState({
     username: '',
@@ -33,19 +35,32 @@ const Signup = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      const response = await axios.post('http://localhost:5000/signup', formData);
+      const response = await axios.post('http://localhost:5000/api/auth/signup', formData);
       console.log(response.data);
       alert('User registered successfully!');
+      navigate('/'); // Redirect to home page after successful signup
     } catch (error) {
       console.error(error);
       alert('Error registering user');
     }
   };
 
+  // Handle close button click
+  const handleClose = () => {
+    navigate('/'); // Redirect to home page on close
+  };
+
   return (
     <div>
       <div className="py-16">
-        <div className="flex bg-white rounded-lg shadow-lg overflow-hidden mx-auto max-w-sm lg:max-w-4xl">
+        <div className="flex bg-white rounded-lg shadow-lg overflow-hidden mx-auto max-w-sm lg:max-w-4xl relative">
+          <button
+            onClick={handleClose}
+            className="absolute top-4 right-4 text-gray-600 hover:text-gray-900"
+            style={{ background: 'none', border: 'none', cursor: 'pointer', fontSize: '1.5rem' }}
+          >
+            &times; {/* Cross button (X) */}
+          </button>
           <div
             className="hidden lg:block lg:w-1/2 bg-cover"
             style={{
@@ -54,9 +69,9 @@ const Signup = () => {
             }}
           ></div>
           <div className="w-full p-8 lg:w-1/2">
-            <h2 className="text-2xl font-semibold text-center" style={{ color: '#274135' }}>
+            <a href='/'><h2 className="text-2xl font-semibold text-center" style={{ color: '#274135' }}>
               eFarmer
-            </h2>
+            </h2></a>
 
             <form onSubmit={handleSubmit}>
               <div className="mt-4 flex">

@@ -5,6 +5,12 @@ import UploadComponent from "../prediction/UploadComponent"
 import Profile from "../base/Profile";
 import AboutUs from "../home_page/AboutUs";
 import CropRecommendation from "../prediction/CropRecommendation";
+import Admin from "../ecom/Admin";
+import Store from "../store/Store";
+import Solution from "../solution/Solution";
+import Contact from "../home_page/Contact";
+import Psolution from "../solution/Psolution";
+import Rsolution from "../solution/Rsolution";
 
 const router = createBrowserRouter([
     {
@@ -30,6 +36,26 @@ const router = createBrowserRouter([
     {
         path: "/yield",
         element: <CropRecommendation/>
+    },
+    {
+        path: "/ecommerce",
+        element: <Admin/>
+    },
+    {
+        path: "/consumer",
+        element: <Store/>
+    },
+    {
+        path: "/psolution",
+        element: <Psolution/>
+    },
+    {
+        path: "/rsolution",
+        element: <Rsolution/>
+    },
+    {
+        path: "/contact",
+        element: <Contact/>
     },
 
 ]);

@@ -19,18 +19,7 @@ const Footer = () => {
           >
             Contact
           </Link>
-          <Link
-            to="/jobs"
-            className="link link-hover text-green-600 hover:text-gray-700 hover:scale-110 transition-transform duration-300"
-          >
-            Jobs
-          </Link>
-          <Link
-            to="/press-kit"
-            className="link link-hover text-green-600 hover:text-gray-700 hover:scale-110 transition-transform duration-300"
-          >
-            Press kit
-          </Link>
+          
         </nav>
 
         {/* Social Media Links */}

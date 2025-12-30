@@ -56,3 +56,4 @@ htmlcov/
 # Misc
 *.bak
 *.tmp
+mongodb_data/

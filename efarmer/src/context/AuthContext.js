@@ -84,9 +84,11 @@ export const AuthProvider = ({ children }) => {
                 throw new Error(response.data.message || 'Login failed');
             }
         } catch (err) {
-            const message = err.response?.data?.message || err.message || 'Login failed';
+            const responseData = err.response?.data;
+            const message = responseData?.message || err.message || 'Login failed';
+            const fieldErrors = responseData?.errors || null;
             setError(message);
-            return { success: false, error: message };
+            return { success: false, error: message, fieldErrors };
         }
     };
 
@@ -111,9 +113,11 @@ export const AuthProvider = ({ children }) => {
                 throw new Error(response.data.message || 'Signup failed');
             }
         } catch (err) {
-            const message = err.response?.data?.message || err.message || 'Signup failed';
+            const responseData = err.response?.data;
+            const message = responseData?.message || err.message || 'Signup failed';
+            const fieldErrors = responseData?.errors || null;
             setError(message);
-            return { success: false, error: message };
+            return { success: false, error: message, fieldErrors };
         }
     };
 

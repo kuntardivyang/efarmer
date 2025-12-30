@@ -1,44 +1,18 @@
-import React, { useEffect, useState } from 'react';
+import React from 'react';
 import Footer from '../base/Footer';
 import { Navbar } from '../base/Navbar';
-import HeroSection from './Hero_section';
-// import Carousel from './Carousel';
-import Hero2 from './Hero2';
 import Hero1 from './Hero1';
+import Hero2 from './Hero2';
 import Content from './Content';
-import Gallery from './Gallery';
-import Content2 from './Content2';
-
 
 export const Home = () => {
-  const [user, setUser] = useState(null);
-
-  // Retrieve user from localStorage
-  useEffect(() => {
-    const storedUser = localStorage.getItem('user');
-    if (storedUser) {
-      setUser(JSON.parse(storedUser));
-    }
-  }, []);
-
-  return (
-    <div>
-      <Navbar />
-      <Hero1/>
-      {/* <Carousel /> */}
-      <Content/>
-      <Gallery/>
-      <Content2/>
-
-      {user && (
-        <div className="text-center my-4">
-          <h1 className="text-4xl font-bold">Welcome, {user.username}!</h1>
+    return (
+        <div className="bg-slate-900">
+            <Navbar />
+            <Hero1 />
+            <Content />
+            <Hero2 />
+            <Footer />
         </div>
-      )}
-      <HeroSection />
-
-      <Hero2 />
-      <Footer />
-    </div>
-  );
+    );
 };

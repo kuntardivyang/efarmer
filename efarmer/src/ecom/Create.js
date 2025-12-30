@@ -18,6 +18,15 @@ const Create = ({ onProductCreated }) => {
     const [error, setError] = useState(null);
     const [loading, setLoading] = useState(false);
     const [success, setSuccess] = useState(false);
+    const [dragActive, setDragActive] = useState(false);
+
+    const categories = [
+        { value: 'seeds', label: 'Seeds', icon: '🌱' },
+        { value: 'pulses', label: 'Pulses', icon: '🫘' },
+        { value: 'fruits', label: 'Fruits', icon: '🍎' },
+        { value: 'vegetables', label: 'Vegetables', icon: '🥬' },
+        { value: 'herbs_spices', label: 'Herbs & Spices', icon: '🌿' },
+    ];
 
     const handleChange = (event) => {
         const { name, value, files } = event.target;
@@ -31,6 +40,29 @@ const Create = ({ onProductCreated }) => {
             setFormData({ ...formData, [name]: value });
         }
         if (error) setError(null);
+    };
+
+    const handleDrag = (e) => {
+        e.preventDefault();
+        e.stopPropagation();
+        if (e.type === 'dragenter' || e.type === 'dragover') {
+            setDragActive(true);
+        } else if (e.type === 'dragleave') {
+            setDragActive(false);
+        }
+    };
+
+    const handleDrop = (e) => {
+        e.preventDefault();
+        e.stopPropagation();
+        setDragActive(false);
+        if (e.dataTransfer.files && e.dataTransfer.files[0]) {
+            const file = e.dataTransfer.files[0];
+            if (file.type.startsWith('image/')) {
+                setFormData({ ...formData, image: file });
+                setImagePreview(URL.createObjectURL(file));
+            }
+        }
     };
 
     const handleSubmit = async (event) => {
@@ -57,12 +89,10 @@ const Create = ({ onProductCreated }) => {
                 setSuccess(true);
                 const newProduct = response.data.data?.product || response.data.product;
 
-                // Notify parent component
                 if (onProductCreated && newProduct) {
                     onProductCreated(newProduct);
                 }
 
-                // Reset form after short delay
                 setTimeout(() => {
                     setShowModal(false);
                     setFormData({
@@ -102,7 +132,7 @@ const Create = ({ onProductCreated }) => {
     return (
         <>
             <button
-                className="flex items-center gap-2 bg-green-600 text-white px-4 py-2 rounded-lg hover:bg-green-700 transition-all duration-300 transform hover:scale-105 active:scale-95 shadow-md hover:shadow-lg"
+                className="inline-flex items-center gap-2 px-6 py-3 rounded-xl bg-gradient-to-r from-green-500 to-emerald-600 text-white font-semibold shadow-lg shadow-green-500/25 hover:shadow-green-500/40 transform hover:-translate-y-0.5 transition-all duration-300"
                 onClick={() => setShowModal(true)}
             >
                 <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -112,16 +142,23 @@ const Create = ({ onProductCreated }) => {
             </button>
 
             {showModal && (
-                <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/50 backdrop-blur-sm animate-fade-in">
-                    <div className="bg-white rounded-2xl shadow-2xl w-full max-w-lg mx-4 max-h-[90vh] overflow-y-auto animate-scale-in">
+                <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/60 backdrop-blur-sm">
+                    <div
+                        className="absolute inset-0"
+                        onClick={handleClose}
+                    ></div>
+                    <div className="relative w-full max-w-lg max-h-[90vh] overflow-y-auto rounded-3xl bg-slate-800 border border-slate-700/50 shadow-2xl">
                         {/* Modal Header */}
-                        <div className="sticky top-0 bg-white px-6 py-4 border-b border-gray-100 flex items-center justify-between">
-                            <h2 className="text-xl font-bold text-gray-900">Add New Product</h2>
+                        <div className="sticky top-0 z-10 px-6 py-4 bg-slate-800/95 backdrop-blur-xl border-b border-slate-700/50 flex items-center justify-between">
+                            <div>
+                                <h2 className="text-xl font-bold text-white">Add New Product</h2>
+                                <p className="text-sm text-gray-400">Fill in the details below</p>
+                            </div>
                             <button
                                 onClick={handleClose}
-                                className="p-2 hover:bg-gray-100 rounded-full transition-colors"
+                                className="p-2 rounded-xl bg-slate-700/50 text-gray-400 hover:text-white hover:bg-slate-700 transition-all duration-300"
                             >
-                                <svg className="w-5 h-5 text-gray-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M6 18L18 6M6 6l12 12" />
                                 </svg>
                             </button>
@@ -129,24 +166,31 @@ const Create = ({ onProductCreated }) => {
 
                         {/* Success Message */}
                         {success && (
-                            <div className="mx-6 mt-4 p-4 bg-green-50 border border-green-200 rounded-lg flex items-center gap-3 animate-fade-in">
-                                <div className="w-10 h-10 bg-green-100 rounded-full flex items-center justify-center">
-                                    <svg className="w-6 h-6 text-green-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <div className="mx-6 mt-4 p-4 rounded-xl bg-green-500/10 border border-green-500/20 flex items-center gap-3">
+                                <div className="w-10 h-10 rounded-xl bg-green-500/20 flex items-center justify-center">
+                                    <svg className="w-6 h-6 text-green-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                         <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M5 13l4 4L19 7" />
                                     </svg>
                                 </div>
                                 <div>
-                                    <p className="font-medium text-green-800">Product Added!</p>
-                                    <p className="text-sm text-green-600">Your product has been created successfully.</p>
+                                    <p className="font-medium text-green-400">Product Added!</p>
+                                    <p className="text-sm text-green-400/70">Your product has been created successfully.</p>
                                 </div>
                             </div>
                         )}
 
                         {/* Error Message */}
                         {error && (
-                            <div className="mx-6 mt-4 p-4 bg-red-50 border border-red-200 rounded-lg text-red-700 animate-fade-in">
-                                <p className="font-medium">Error</p>
-                                <p className="text-sm">{error}</p>
+                            <div className="mx-6 mt-4 p-4 rounded-xl bg-red-500/10 border border-red-500/20 flex items-center gap-3">
+                                <div className="w-10 h-10 rounded-xl bg-red-500/20 flex items-center justify-center">
+                                    <svg className="w-6 h-6 text-red-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M12 8v4m0 4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+                                    </svg>
+                                </div>
+                                <div>
+                                    <p className="font-medium text-red-400">Error</p>
+                                    <p className="text-sm text-red-400/70">{error}</p>
+                                </div>
                             </div>
                         )}
 
@@ -154,8 +198,20 @@ const Create = ({ onProductCreated }) => {
                         <form onSubmit={handleSubmit} className="p-6 space-y-5">
                             {/* Image Upload */}
                             <div>
-                                <label className="block text-sm font-medium text-gray-700 mb-2">Product Image</label>
-                                <div className="relative">
+                                <label className="block text-sm font-medium text-gray-300 mb-2">Product Image</label>
+                                <div
+                                    className={`relative border-2 border-dashed rounded-2xl transition-all duration-300 ${
+                                        dragActive
+                                            ? 'border-green-500 bg-green-500/10'
+                                            : imagePreview
+                                            ? 'border-green-500/50 bg-green-500/5'
+                                            : 'border-slate-600 hover:border-slate-500'
+                                    }`}
+                                    onDragEnter={handleDrag}
+                                    onDragLeave={handleDrag}
+                                    onDragOver={handleDrag}
+                                    onDrop={handleDrop}
+                                >
                                     <input
                                         type="file"
                                         name="image"
@@ -163,25 +219,32 @@ const Create = ({ onProductCreated }) => {
                                         className="hidden"
                                         id="image-upload"
                                         accept="image/*"
-                                        required
+                                        required={!imagePreview}
                                     />
                                     <label
                                         htmlFor="image-upload"
-                                        className="flex flex-col items-center justify-center w-full h-40 border-2 border-dashed border-gray-300 rounded-xl cursor-pointer hover:border-green-500 transition-colors bg-gray-50 hover:bg-gray-100"
+                                        className="flex flex-col items-center justify-center w-full h-48 cursor-pointer"
                                     >
                                         {imagePreview ? (
-                                            <img
-                                                src={imagePreview}
-                                                alt="Preview"
-                                                className="h-full w-full object-cover rounded-xl"
-                                            />
+                                            <div className="relative w-full h-full">
+                                                <img
+                                                    src={imagePreview}
+                                                    alt="Preview"
+                                                    className="h-full w-full object-cover rounded-xl"
+                                                />
+                                                <div className="absolute inset-0 bg-black/40 opacity-0 hover:opacity-100 transition-opacity rounded-xl flex items-center justify-center">
+                                                    <span className="text-white text-sm font-medium">Click to change</span>
+                                                </div>
+                                            </div>
                                         ) : (
-                                            <div className="text-center">
-                                                <svg className="w-10 h-10 text-gray-400 mx-auto mb-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z" />
-                                                </svg>
-                                                <p className="text-sm text-gray-500">Click to upload image</p>
-                                                <p className="text-xs text-gray-400 mt-1">PNG, JPG up to 5MB</p>
+                                            <div className="text-center p-6">
+                                                <div className="w-16 h-16 rounded-2xl bg-slate-700/50 flex items-center justify-center mx-auto mb-4">
+                                                    <svg className="w-8 h-8 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z" />
+                                                    </svg>
+                                                </div>
+                                                <p className="text-gray-300 font-medium mb-1">Drop image here or click to upload</p>
+                                                <p className="text-gray-500 text-sm">PNG, JPG up to 5MB</p>
                                             </div>
                                         )}
                                     </label>
@@ -190,13 +253,13 @@ const Create = ({ onProductCreated }) => {
 
                             {/* Crop Name */}
                             <div>
-                                <label className="block text-sm font-medium text-gray-700 mb-2">Product Name</label>
+                                <label className="block text-sm font-medium text-gray-300 mb-2">Product Name</label>
                                 <input
                                     type="text"
                                     name="cropName"
                                     value={formData.cropName}
                                     onChange={handleChange}
-                                    className="w-full px-4 py-3 border border-gray-200 rounded-lg focus:ring-2 focus:ring-green-500 focus:border-transparent transition-all duration-200"
+                                    className="w-full px-4 py-3 rounded-xl bg-slate-900/50 border border-slate-700 text-white placeholder-gray-500 focus:outline-none focus:border-green-500/50 focus:ring-2 focus:ring-green-500/20 transition-all duration-300"
                                     placeholder="e.g., Fresh Tomatoes"
                                     required
                                 />
@@ -204,12 +267,12 @@ const Create = ({ onProductCreated }) => {
 
                             {/* Description */}
                             <div>
-                                <label className="block text-sm font-medium text-gray-700 mb-2">Description</label>
+                                <label className="block text-sm font-medium text-gray-300 mb-2">Description</label>
                                 <textarea
                                     name="description"
                                     value={formData.description}
                                     onChange={handleChange}
-                                    className="w-full px-4 py-3 border border-gray-200 rounded-lg focus:ring-2 focus:ring-green-500 focus:border-transparent transition-all duration-200 resize-none"
+                                    className="w-full px-4 py-3 rounded-xl bg-slate-900/50 border border-slate-700 text-white placeholder-gray-500 focus:outline-none focus:border-green-500/50 focus:ring-2 focus:ring-green-500/20 transition-all duration-300 resize-none"
                                     placeholder="Describe your product..."
                                     rows="3"
                                     required
@@ -219,15 +282,15 @@ const Create = ({ onProductCreated }) => {
                             {/* Price and Quantity Row */}
                             <div className="grid grid-cols-2 gap-4">
                                 <div>
-                                    <label className="block text-sm font-medium text-gray-700 mb-2">Price (₹/kg)</label>
+                                    <label className="block text-sm font-medium text-gray-300 mb-2">Price (₹/kg)</label>
                                     <div className="relative">
-                                        <span className="absolute left-4 top-1/2 transform -translate-y-1/2 text-gray-500">₹</span>
+                                        <span className="absolute left-4 top-1/2 transform -translate-y-1/2 text-gray-400 font-medium">₹</span>
                                         <input
                                             type="number"
                                             name="pricePerKg"
                                             value={formData.pricePerKg}
                                             onChange={handleChange}
-                                            className="w-full pl-8 pr-4 py-3 border border-gray-200 rounded-lg focus:ring-2 focus:ring-green-500 focus:border-transparent transition-all duration-200"
+                                            className="w-full pl-10 pr-4 py-3 rounded-xl bg-slate-900/50 border border-slate-700 text-white placeholder-gray-500 focus:outline-none focus:border-green-500/50 focus:ring-2 focus:ring-green-500/20 transition-all duration-300"
                                             placeholder="0.00"
                                             min="0"
                                             step="0.01"
@@ -236,13 +299,13 @@ const Create = ({ onProductCreated }) => {
                                     </div>
                                 </div>
                                 <div>
-                                    <label className="block text-sm font-medium text-gray-700 mb-2">Quantity (kg)</label>
+                                    <label className="block text-sm font-medium text-gray-300 mb-2">Quantity (kg)</label>
                                     <input
                                         type="number"
                                         name="quantity"
                                         value={formData.quantity}
                                         onChange={handleChange}
-                                        className="w-full px-4 py-3 border border-gray-200 rounded-lg focus:ring-2 focus:ring-green-500 focus:border-transparent transition-all duration-200"
+                                        className="w-full px-4 py-3 rounded-xl bg-slate-900/50 border border-slate-700 text-white placeholder-gray-500 focus:outline-none focus:border-green-500/50 focus:ring-2 focus:ring-green-500/20 transition-all duration-300"
                                         placeholder="0"
                                         min="0"
                                         required
@@ -252,21 +315,30 @@ const Create = ({ onProductCreated }) => {
 
                             {/* Category */}
                             <div>
-                                <label className="block text-sm font-medium text-gray-700 mb-2">Category</label>
-                                <select
+                                <label className="block text-sm font-medium text-gray-300 mb-2">Category</label>
+                                <div className="grid grid-cols-2 sm:grid-cols-3 gap-2">
+                                    {categories.map((cat) => (
+                                        <button
+                                            key={cat.value}
+                                            type="button"
+                                            onClick={() => setFormData({ ...formData, category: cat.value })}
+                                            className={`p-3 rounded-xl border text-sm font-medium transition-all duration-300 flex items-center gap-2 ${
+                                                formData.category === cat.value
+                                                    ? 'bg-green-500/20 border-green-500/50 text-green-400'
+                                                    : 'bg-slate-900/50 border-slate-700 text-gray-400 hover:border-slate-600 hover:text-white'
+                                            }`}
+                                        >
+                                            <span>{cat.icon}</span>
+                                            <span>{cat.label}</span>
+                                        </button>
+                                    ))}
+                                </div>
+                                <input
+                                    type="hidden"
                                     name="category"
                                     value={formData.category}
-                                    onChange={handleChange}
-                                    className="w-full px-4 py-3 border border-gray-200 rounded-lg focus:ring-2 focus:ring-green-500 focus:border-transparent transition-all duration-200 bg-white"
                                     required
-                                >
-                                    <option value="">Select a category</option>
-                                    <option value="seeds">Seeds</option>
-                                    <option value="pulses">Pulses</option>
-                                    <option value="fruits">Fruits</option>
-                                    <option value="vegetables">Vegetables</option>
-                                    <option value="herbs_spices">Herbs & Spices</option>
-                                </select>
+                                />
                             </div>
 
                             {/* Buttons */}
@@ -274,14 +346,14 @@ const Create = ({ onProductCreated }) => {
                                 <button
                                     type="button"
                                     onClick={handleClose}
-                                    className="flex-1 py-3 px-4 border border-gray-200 text-gray-700 rounded-lg hover:bg-gray-50 transition-colors font-medium"
+                                    className="flex-1 py-3 px-6 rounded-xl bg-slate-700/50 text-gray-300 border border-slate-600 hover:bg-slate-700 transition-all duration-300 font-medium"
                                 >
                                     Cancel
                                 </button>
                                 <button
                                     type="submit"
-                                    disabled={loading || success}
-                                    className="flex-1 py-3 px-4 bg-green-600 text-white rounded-lg hover:bg-green-700 transition-all duration-300 font-medium disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center gap-2"
+                                    disabled={loading || success || !formData.category}
+                                    className="flex-1 py-3 px-6 rounded-xl bg-gradient-to-r from-green-500 to-emerald-600 text-white font-medium shadow-lg shadow-green-500/25 hover:shadow-green-500/40 transition-all duration-300 disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center gap-2"
                                 >
                                     {loading ? (
                                         <>

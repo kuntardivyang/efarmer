@@ -1,63 +1,96 @@
-import { createBrowserRouter } from "react-router-dom"; // Use ES6 import syntax
+import { createBrowserRouter } from "react-router-dom";
+import Login from "../auth/Login";
 import Signup from "../auth/Signup";
 import { Home } from "../home_page/Home";
-import UploadComponent from "../prediction/UploadComponent"
+import UploadComponent from "../prediction/UploadComponent";
 import Profile from "../base/Profile";
 import AboutUs from "../home_page/AboutUs";
 import CropRecommendation from "../prediction/CropRecommendation";
 import Admin from "../ecom/Admin";
 import Store from "../store/Store";
-import Solution from "../solution/Solution";
 import Contact from "../home_page/Contact";
 import Psolution from "../solution/Psolution";
 import Rsolution from "../solution/Rsolution";
+import { ProtectedRoute, FarmerRoute, PublicOnlyRoute } from "../components/ProtectedRoute";
+import NotFound from "../components/NotFound";
 
 const router = createBrowserRouter([
     {
-        path: "/", 
-        element: <Home />, // Pass as an element inside the array
+        path: "/",
+        element: <Home />,
+    },
+    {
+        path: "/login",
+        element: (
+            <PublicOnlyRoute>
+                <Login />
+            </PublicOnlyRoute>
+        )
     },
     {
         path: "/signup",
-        element: <Signup/>
+        element: (
+            <PublicOnlyRoute>
+                <Signup />
+            </PublicOnlyRoute>
+        )
     },
     {
         path: "/predictDisease",
-        element: <UploadComponent/>
+        element: (
+            <ProtectedRoute>
+                <UploadComponent />
+            </ProtectedRoute>
+        )
     },
     {
         path: "/profile",
-        element: <Profile/>
+        element: (
+            <ProtectedRoute>
+                <Profile />
+            </ProtectedRoute>
+        )
     },
     {
         path: "/about",
-        element: <AboutUs/>
+        element: <AboutUs />
     },
     {
         path: "/yield",
-        element: <CropRecommendation/>
+        element: (
+            <ProtectedRoute>
+                <CropRecommendation />
+            </ProtectedRoute>
+        )
     },
     {
         path: "/ecommerce",
-        element: <Admin/>
+        element: (
+            <FarmerRoute>
+                <Admin />
+            </FarmerRoute>
+        )
     },
     {
         path: "/consumer",
-        element: <Store/>
+        element: <Store />
     },
     {
         path: "/psolution",
-        element: <Psolution/>
+        element: <Psolution />
     },
     {
         path: "/rsolution",
-        element: <Rsolution/>
+        element: <Rsolution />
     },
     {
         path: "/contact",
-        element: <Contact/>
+        element: <Contact />
     },
-
+    {
+        path: "*",
+        element: <NotFound />
+    },
 ]);
 
 export default router;

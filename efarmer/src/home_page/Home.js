@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import Footer from '../base/Footer';
 import { Navbar } from '../base/Navbar';
-import Hero_section from './Hero_section';
+import HeroSection from './Hero_section';
 // import Carousel from './Carousel';
 import Hero2 from './Hero2';
 import Hero1 from './Hero1';
@@ -35,7 +35,7 @@ export const Home = () => {
           <h1 className="text-4xl font-bold">Welcome, {user.username}!</h1>
         </div>
       )}
-      <Hero_section />
+      <HeroSection />
 
       <Hero2 />
       <Footer />

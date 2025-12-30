@@ -1,11 +1,29 @@
-asgiref==3.8.1
+# Django Core
 Django==5.1.1
-django-cors-headers==4.4.0
 djangorestframework==3.15.2
 djangorestframework-simplejwt==5.3.1
+django-cors-headers==4.4.0
+
+# Database
 psycopg==3.2.1
-psycopg2==2.9.9
+psycopg2-binary==2.9.9
+
+# Environment Variables
+python-decouple==3.8
+
+# ML/Data Science
+tensorflow==2.15.0
+scikit-learn==1.5.1
+numpy==1.26.4
+Pillow==10.4.0
+joblib==1.4.2
+
+# Utilities
+asgiref==3.8.1
 PyJWT==2.9.0
 sqlparse==0.5.1
 typing_extensions==4.12.2
 tzdata==2024.1
+
+# Security
+bleach==6.1.0

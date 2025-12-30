@@ -1,0 +1,25 @@
+# Express Backend Dockerfile
+FROM node:18-alpine
+
+WORKDIR /app
+
+# Install curl for healthcheck
+RUN apk add --no-cache curl
+
+# Copy package files
+COPY package*.json ./
+
+# Install production dependencies only
+RUN npm ci --only=production
+
+# Copy backend source code
+COPY Backend/ ./
+
+# Create uploads directory
+RUN mkdir -p uploads
+
+# Expose port
+EXPOSE 5000
+
+# Start the server
+CMD ["node", "server.js"]
